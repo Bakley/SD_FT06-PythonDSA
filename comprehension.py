@@ -1,5 +1,6 @@
 # List comprehension
 import time
+import random
 
 def measure_time(func):
     def wrapper(*args, **kwargs):
@@ -21,33 +22,32 @@ def even_digits(x) -> list[int]:
     return new_Arry
 
 @measure_time
-def list_comprehension_in_python()-> list[int]:
-    even_numbers = [ints for ints in numbers if ints % 2 == 0]
-    return even_numbers
+def list_comprehension_in_python(x)-> list[int]:
+    return [ints for ints in numbers if ints % 2 == 0]
 
 @measure_time
-def generators_in_python():
-    even_numbers = (ints for ints in numbers if ints % 2 == 0)
-    return even_numbers
+def generators_in_python(x): 
+    return (ints for ints in numbers if ints % 2 == 0)
 
 
 
 if __name__ == "__main__":
     
-    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    numbers = [random.randint(0, 100) for _ in range(1000)]
+
     # Measure execution time of the normal for loop approach
     even_numbers_indices = even_digits(numbers)
-    print(f"Using a normal for loop: {even_numbers_indices}")
-    print('*' * 50)
+    # print(f"Using a normal for loop: {even_numbers_indices}")
+    # print('*' * 50)
 
     # Measure execution time of the list comprehension approach
-    even_numbers_list = list_comprehension_in_python()
-    print(f"Using list comprehension: {even_numbers_list}")
-    print('*' * 50)
+    even_numbers_list = list_comprehension_in_python(numbers)
+    # print(f"Using list comprehension: {even_numbers_list}")
+    # print('*' * 50)
 
     # Measure execution time of the generator expression approach
-    even_numbers_generator = generators_in_python()
-    print(f"Using a generator expression: {even_numbers_generator}")  # Prints the iterator object itself
+    even_numbers_generator = generators_in_python(numbers)
+    # print(f"Using a generator expression: {even_numbers_generator}")  # Prints the iterator object itself
 
     # Consume the generator's contents to print the even numbers
     for even_num in even_numbers_generator:
